@@ -10,7 +10,7 @@ const models = require('../../db/models');
 passport.serializeUser((profile, done) => {
   done(null, profile.id);
 });
-
+// hello
 passport.deserializeUser((id, done) => {
   return models.Profile.where({ id }).fetch()
     .then(profile => {
