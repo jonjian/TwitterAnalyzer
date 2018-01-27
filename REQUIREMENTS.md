@@ -14,7 +14,7 @@ _As a Twitter Advertiser I want to know what the ratio of positive to negative t
   - User should be able to find tweets based on keyword
 
 3) Use the [sentiment package](https://www.npmjs.com/package/sentiment) to get a sentiment score
-    
+    Use sentiment or watson from IBM
 *Client Side Requirements*
 
 1) Accept Server Side Events to capture Tweet stream from client

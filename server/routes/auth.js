@@ -47,7 +47,8 @@ router.get('/auth/google', middleware.passport.authenticate('google', {
 
 router.get('/auth/google/callback', middleware.passport.authenticate('google', {
   successRedirect: '/profile',
-  failureRedirect: '/login'
+  failureRedirect: '/login',
+  failureFlash: true,
 }));
 
 router.get('/auth/facebook', middleware.passport.authenticate('facebook', {

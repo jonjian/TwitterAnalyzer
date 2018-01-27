@@ -7,21 +7,21 @@
 
   "passport": {
     "Google": {
-      "clientID": "FILL_ME_IN",
-      "clientSecret": "FILL_ME_IN",
-      "callbackURL": "http://FILL_ME_IN/auth/google/callback"
+      "clientID": "fillme",
+      "clientSecret": "fillme",
+      "callbackURL": "http://fillme/auth/google/callback"
     },
 
     "Facebook": {
-      "clientID": "FILL_ME_IN",
-      "clientSecret": "FILL_ME_IN",
-      "callbackURL": "http://FILL_ME_IN/auth/facebook/callback"
+      "clientID": "fillme",
+      "clientSecret": "fillme",
+      "callbackURL": "http://fillme/auth/facebook/callback"
     },
 
     "Twitter": {
-      "consumerKey": "FILL_ME_IN",
-      "consumerSecret": "FILL_ME_IN",
-      "callbackURL": "http://FILL_ME_IN/auth/twitter/callback"
+      "consumerKey": "fillme",
+      "consumerSecret": "fillme",
+      "callbackURL": "http://fillme/auth/twitter/callback"
     }
   }
 }
