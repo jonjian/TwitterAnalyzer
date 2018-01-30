@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import io from 'socket.io-client';
+import { connect } from '../socketHelpers/socketHelpers';
+import Search from '../components/search.jsx';
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -12,13 +13,13 @@ export default class Main extends React.Component {
 
   componentDidMount() {
     // connects to socket when component loads
-    let socket = io.connect("http://localhost:3000");
+    connect(this);
   }
 
   render() {
     return (
       <div>
-        Hello World!
+        <Search />
       </div>
     );
   }
