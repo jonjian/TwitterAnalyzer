@@ -15,7 +15,7 @@ const T = new Twit({
 });
 
 // creating a connection to twitter stream API
-const keyword = 'tesla';
+const keyword = '';
 const stream = T.stream('statuses/filter', { track: [keyword] });
 let counter = 0;
 
@@ -25,6 +25,7 @@ const storeTweets = (eventMsg) => {
   // shows the sentiment return of each tweet
   // use score.score to get the actual score
   // console.log(score.score);
+  console.log(score.score, eventMsg.text);
   // console.log('success store: tweet #', counter += 1);
   // knex('tweets').insert({
   //   tweet_id: eventMsg.id_str,
