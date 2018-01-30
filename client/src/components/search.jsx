@@ -14,6 +14,6 @@ export default class Search extends React.Component {
       <div>
         search bar
       </div>
-    )
+    );
   }
 }
