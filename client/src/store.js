@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux';
 
 // import redux middleware
-import logger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import promise from 'redux-promise-middleware';
 
@@ -9,7 +9,7 @@ import promise from 'redux-promise-middleware';
 import reducer from './reducers';
 
 // set our middleware to a variable
-const middleware = applyMiddleware(logger(), thunk, promise());
+const middleware = applyMiddleware(createLogger(), thunk, promise());
 
 // export our createStore so that all components can reach store
 export default createStore(reducer, middleware);

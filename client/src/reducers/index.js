@@ -1,4 +1,4 @@
-import { combineReducers } from 'react-redux';
+import { combineReducers } from 'redux';
 
 // import all reducer files to combine here
 import tweets from './tweetsReducer';
