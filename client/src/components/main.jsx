@@ -13,6 +13,7 @@ import Search from '../components/search.jsx';
     user: store.user,
   }
 })
+
 export default class Main extends React.Component {
 
   componentDidMount() {
