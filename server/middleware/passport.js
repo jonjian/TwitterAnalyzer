@@ -129,7 +129,7 @@ passport.use('twitter', new TwitterStrategy({
   consumerKey: config.Twitter.consumerKey,
   consumerSecret: config.Twitter.consumerSecret,
   callbackURL: config.Twitter.callbackURL,
-  userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true'
+  userProfileURL: 'https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true',
 },
   (accessToken, refreshToken, profile, done) => getOrCreateOAuthProfile('twitter', profile, done))
 );
@@ -139,7 +139,6 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     withRelated: ['profile']
   })
     .then(oauthAccount => {
-
       if (oauthAccount) {
         throw oauthAccount;
       }
@@ -151,16 +150,15 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
       return models.Profile.where({ email: oauthProfile.emails[0].value }).fetch();
     })
     .then(profile => {
-
       let profileInfo = {
-        first: oauthProfile.name.givenName,
-        last: oauthProfile.name.familyName,
+        first: oauthProfile.name.givenName || oauthProfile.displayName.split(' ')[0],
+        last: oauthProfile.name.familyName || oauthProfile.displayName.split(' ')[1],
         display: oauthProfile.displayName || `${oauthProfile.name.givenName} ${oauthProfile.name.familyName}`,
         email: oauthProfile.emails[0].value
       };
-
       if (profile) {
         //update profile with info from oauth
+        console.log(profileInfo)
         return profile.save(profileInfo, { method: 'update' });
       }
       // otherwise create new profile
@@ -184,17 +182,21 @@ const getOrCreateOAuthProfile = (type, oauthProfile, done) => {
     })
     .then(profile => {
       if (profile) {
+        console.log("187");
         done(null, profile.serialize());
       }
     })
     .catch(() => {
       // TODO: This is not working because redirect to login uses req.flash('loginMessage')
       // and there is no access to req here
+      console.log('HIHDIFHISDHIFHSDIHFIOSDH')
       done(null, null, {
         'message': 'Signing up requires an email address, \
           please be sure there is an email address associated with your Facebook account \
           and grant access when you register.' });
     });
+
+    // req.flash('signupMessage', 'An account with this email address already exists.'
 };
 
 module.exports = passport;

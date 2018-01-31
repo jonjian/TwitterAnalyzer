@@ -20,6 +20,7 @@ io.on('connection', (socket) => {
 
   // request and return tweets line
   socket.on('requestTweets', (data) => {
+    // need to FIX to send back the tweet data from DB and incoming stream
     io.sockets.emit('fetchTweets', data);
   });
 });

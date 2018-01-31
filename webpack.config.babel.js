@@ -5,26 +5,29 @@ const config = {
   entry: './client/src/app.jsx',
   output: {
     path: path.join(__dirname, 'public/dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   node: {
     fs: 'empty',
   },
   module: {
     rules: [
-      { test: /\.(js|jsx)$/,
+      {
+        test: /\.(js|jsx)$/,
         include: path.join(__dirname, 'client/src'),
         exclude: ['node_modules'],
         use: [
-          { loader: 'babel-loader',
+          {
+            loader: 'babel-loader',
             options: {
-              presets: ['react', 'es2015']
-            }
-          }
-        ]
-      }
-    ]
-  }
+              presets: ['react', 'es2015'],
+              plugins: ['transform-class-properties', 'transform-decorators-legacy'],
+            },
+          },
+        ],
+      },
+    ],
+  },
 };
 
 export default config;
