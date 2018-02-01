@@ -2,7 +2,7 @@
 
 export default function reducer(state = {
   tweets: [],
-  sentimentScores: null,
+  sentimentScores: [],
   fetching: false,
 }, action) {
   switch (action.type) {
@@ -11,7 +11,10 @@ export default function reducer(state = {
     }
     case 'ADD_TWEETS': {
       // TODO: need to make it so the tweets added are old tweets plus new from stream
-      return { ...state, tweets: [] };
+      return { ...state, tweets: [...state.tweets, action.payload] };
+    }
+    case 'ADD_SENTIMENT': {
+      return { ...state, sentimentScores: [...state.sentimentScores, action.payload] };
     }
     default: { return state; }
   }

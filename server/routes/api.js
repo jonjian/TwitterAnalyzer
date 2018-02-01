@@ -15,7 +15,7 @@ const T = new Twit({
 });
 
 // creating a connection to twitter stream API
-const keyword = '';
+const keyword = 'apple';
 const stream = T.stream('statuses/filter', { track: [keyword] });
 let counter = 0;
 
@@ -26,23 +26,23 @@ const storeTweets = (eventMsg) => {
   // use score.score to get the actual score
   // console.log(score.score);
   console.log(score.score, eventMsg.text);
-  // console.log('success store: tweet #', counter += 1);
-  // knex('tweets').insert({
-  //   tweet_id: eventMsg.id_str,
-  //   timestamp: eventMsg.created_at,
-  //   username: eventMsg.user.name,
-  //   profile_picture: eventMsg.user.profile_image_url,
-  //   text: eventMsg.text,
-  //   keyword,
-  //   sentiment: score.score,
-  //   favourites: eventMsg.user.favourites_count,
-  //   retweets: eventMsg.user.statuses_count,
-  //   language: eventMsg.user.lang,
-  //   geo: eventMsg.user.location,
-  //   coordinates: eventMsg.coordinates,
-  //   timezone: eventMsg.user.time_zone,
-  // })
-  //   .then();
+  console.log('success store: tweet #', counter += 1);
+  knex('tweets').insert({
+    tweet_id: eventMsg.id_str,
+    timestamp: eventMsg.created_at,
+    username: eventMsg.user.name,
+    profile_picture: eventMsg.user.profile_image_url,
+    text: eventMsg.text,
+    keyword,
+    sentiment: score.score,
+    favourites: eventMsg.user.favourites_count,
+    retweets: eventMsg.user.statuses_count,
+    language: eventMsg.user.lang,
+    geo: eventMsg.user.location,
+    coordinates: eventMsg.coordinates,
+    timezone: eventMsg.user.time_zone,
+  })
+    .then();
 };
 
 stream.on('tweet', storeTweets);

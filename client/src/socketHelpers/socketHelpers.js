@@ -1,6 +1,9 @@
 const io = require('socket.io-client');
 
 const afterConnect = (socket) => {
+  socket.on('connect_failed', () => {
+    console.log('failed to connect to socket...');
+  });
   // for all client-side listeners
   socket.on('fetchTweets', (data) => {
     console.log('fetching tweets..');
@@ -10,13 +13,15 @@ const afterConnect = (socket) => {
   });
 };
 
-const startConnection = () => {
+const startConnection = new Promise((resolve, reject) => {
+
   // create websocket connection
   let socket = io.connect('http://127.0.0.1:3000');
-
-  // add listeners
   afterConnect(socket);
-};
+
+  // error handling, handled in afterConnect event listeners
+  resolve(socket);
+});
 
 
 module.exports = {

@@ -28,6 +28,9 @@ const config = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js', '.json', '.jsx'],
+  },
 };
 
 export default config;
