@@ -74,5 +74,8 @@
     "plugins": [
       "transform-es2015-modules-commonjs"
     ]
+  },
+  "compilerOptions": {
+      "experimentalDecorators": true
   }
 }
