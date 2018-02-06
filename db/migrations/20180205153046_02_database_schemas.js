@@ -4,6 +4,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('keyword', 100).nullable();
     table.string('timestamp', 1000).nullable();
     table.string('sentiment', 1000).nullable();
+    table.string('location', 1000).nullable();
   }),
 ]);
 

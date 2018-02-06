@@ -1,6 +1,9 @@
 const app = require('./app');
 const db = require('../db');
 
+// runs the background scripts that store 5 min increments of data into increments table
+// const increment_store = require('./server_scripts/db_increment_store');
+
 const PORT = process.env.port || 3000;
 
 // socket.io set up
