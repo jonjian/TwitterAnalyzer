@@ -14,9 +14,8 @@ const T = new Twit({
   timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
 });
 
-// creating a connection to twitter stream API
-const keyword = 'apple';
-const stream = T.stream('statuses/filter', { track: [keyword] });
+let keyword;
+let stream;
 let counter = 0;
 
 const storeTweets = (eventMsg) => {
@@ -24,29 +23,42 @@ const storeTweets = (eventMsg) => {
   const score = sentiment(eventMsg.text);
   // shows the sentiment return of each tweet
   // use score.score to get the actual score
-  // console.log(score.score);
+  // // console.log(score.score);
   console.log(score.score, eventMsg.text);
   console.log('success store: tweet #', counter += 1);
-  knex('tweets').insert({
-    tweet_id: eventMsg.id_str,
-    timestamp: eventMsg.created_at,
-    username: eventMsg.user.name,
-    profile_picture: eventMsg.user.profile_image_url,
-    text: eventMsg.text,
-    keyword,
-    sentiment: score.score,
-    favourites: eventMsg.user.favourites_count,
-    retweets: eventMsg.user.statuses_count,
-    language: eventMsg.user.lang,
-    geo: eventMsg.user.location,
-    coordinates: eventMsg.coordinates,
-    timezone: eventMsg.user.time_zone,
-  })
+  knex('tweets')
+    .insert({
+      tweet_id: eventMsg.id_str,
+      timestamp: eventMsg.created_at,
+      username: eventMsg.user.name,
+      profile_picture: eventMsg.user.profile_image_url,
+      text: eventMsg.text,
+      keyword,
+      sentiment: score.score,
+      favourites: eventMsg.user.favourites_count,
+      retweets: eventMsg.user.statuses_count,
+      language: eventMsg.user.lang,
+      geo: eventMsg.user.location,
+      coordinates: eventMsg.coordinates,
+      timezone: eventMsg.user.time_zone,
+    })
     .then();
 };
 
-stream.on('tweet', storeTweets);
+router.post('/fetchKeyword', (req, res) => {
+  // set keyword equal to query from client side
+  keyword = req.body.query;
+  // open tweet stream with filter to keyword
+  stream = T.stream('statuses/filter', { track: [keyword] });
+  // store in DB
+  stream.on('tweet', storeTweets);
+  // send tweet data from db back to client
+  knex.raw(`select sentiment from tweets where keyword = '${keyword}'`)
+    .then(data => res.status(200).send(data.rows));
+});
 
+// get only sentiment for keyword:
+// knex.raw(`select sentiment from tweets where keyword = '${keyword}'`)
 
 //  get request to search twitter for all tweets containing the word 'apple' since 2018
 // T.get('search/tweets', { q: 'apple since:2018-01-01', count: 5 }, (err, data, response) => {
@@ -57,15 +69,5 @@ stream.on('tweet', storeTweets);
 // console.log('ID: ', tweets[i].user.screen_name, 'TEXT: ', tweets[i].text);
 //   }
 // });
-
-router.route('/')
-  .get((req, res) => {
-    res.status(200).send('Hello World!');
-  })
-  .post((req, res) => {
-    console.log('in the correct route');
-    res.status(201).send({ data: 'Posted!' });
-  });
-
 
 module.exports = router;
