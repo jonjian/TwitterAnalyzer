@@ -24,9 +24,9 @@ const storeTweets = (eventMsg) => {
   const score = sentiment(eventMsg.text);
   // shows the sentiment return of each tweet
   // use score.score to get the actual score
-  // // console.log(score.score);
-  console.log(score.score, eventMsg.text);
-  console.log('success store: tweet #', counter += 1);
+  // // // console.log(score.score);
+  // console.log(score.score, keyword, eventMsg.text);
+  // console.log('success store: tweet #', counter += 1);
   knex('tweets')
     .insert({
       tweet_id: eventMsg.id_str,
