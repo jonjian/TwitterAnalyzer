@@ -75,7 +75,7 @@ export default class Main extends React.Component {
         <Search search={this.searchKeyword}/>
         <ul>
         {this.props.tweets.tweets[0] 
-          ? this.props.tweets.tweets[0].map(tweet => <li key={tweet.id}>{JSON.stringify(tweet.sentiment)}</li>) 
+          ? this.props.tweets.tweets[0].map(tweet => <li key={tweet.timestamp}>{JSON.stringify(tweet.sentiment)}</li>) 
           : ''
         }
         </ul>

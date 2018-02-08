@@ -58,7 +58,7 @@ router.post('/fetchKeyword', (req, res) => {
   // store in DB
   stream.on('tweet', storeTweets);
   // send tweet data from db back to client
-  knex.raw(`select sentiment from tweets where keyword = '${keyword}'`)
+  knex.raw(`select sentiment, timestamp, location from tweet_increments where keyword = '${keyword}'`)
     .then(data => res.status(200).send(data.rows));
 });
 
