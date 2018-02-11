@@ -6,6 +6,8 @@ config/test.json
 config/ENV.json
 config/default.json
 .env
+travis.yml
+client/test
 
 # OS X
 .DS_Store

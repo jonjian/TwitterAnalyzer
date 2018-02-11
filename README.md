@@ -1,21 +1,11 @@
-# Project Name
+Twitter sentiment Analyzer
 
-The project description
+Given a keyword, this application will open a stream to twitter's API and run sentiment analysis for all tweets related to the given input keyword. Then using D3 visualization tools to render the data to the clients view.
 
-## Team
-
-- teamMember
-- teamMember
-- teamMember
-- teamMember
 
 ## Roadmap
 
-View the project roadmap [here](LINK_TO_DOC)
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+View the project roadmap [here](https://trello.com/b/0VYtM3ug)
 
 # Table of Contents
 
@@ -27,7 +17,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Usage
 
-> Some usage instructions
+> Some usage instructions if you want to try it out
 
 ## Requirements
 

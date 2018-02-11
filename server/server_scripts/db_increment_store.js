@@ -10,7 +10,7 @@ const knex = require('knex')(require('../../knexfile'));
 
 // need to get the last timestamp of the increment table (account for no value)
 // use this to tell the script what timestamp to continue from
-let timestamp = '2018-02-05 18:02:54.189138-08';
+// let timestamp = '2018-02-05 18:02:54.189138-08';
 let tweetArray = [];
 let sortedTweets = {};
 let storage = [];
@@ -18,13 +18,14 @@ let finalTweet;
 // make sure to reset tweet array and sortedTweets
 const incrementStore = () => knex.raw('SELECT timestamp FROM tweet_increments ORDER BY timestamp DESC LIMIT 1')
   .then((data) => {
-    console.log(data.rows[0].timestamp)
-    if (data.rows[0].timestamp !== null || data.rows[0].timestamp !== undefined) {
-      timestamp = data.rows[0].timestamp;
+    let timestamp = '2018-02-05 18:02:54.189138-08';
+    if (data.rows.length === 0) {
+      return timestamp;
     }
+    return data.rows[0];
   })
   // select all tweets after last tweets timestamp and push into tweetArr for processing
-  .then(() => knex.raw(`SELECT * from tweets WHERE created_at > '${timestamp}' ORDER BY created_at ASC`))
+  .then(data => knex.raw(`SELECT * from tweets WHERE created_at > '${data.timestamp}' ORDER BY created_at ASC`))
   .then((data) => {
     data.rows.forEach((tweet) => {
       tweetArray.push([tweet.keyword, tweet.sentiment, tweet.created_at, tweet.geo]);
@@ -88,4 +89,4 @@ const incrementStore = () => knex.raw('SELECT timestamp FROM tweet_increments OR
   })
   .then(setTimeout(incrementStore, 300000));
 
-incrementStore();
+setTimeout(incrementStore, 300000);

@@ -6,6 +6,7 @@ const io = require("socket.io-client");
 import { connect } from 'react-redux';
 
 import Search from '../components/search.jsx';
+import SentimentGraph from './lineChart.jsx';
 
 import setSocket from '../actions/socketActions';
 import * as tweetHelpers from '../actions/tweetsActions';
@@ -26,6 +27,12 @@ export default class Main extends React.Component {
       query: '',
     };
     this.searchKeyword = this.searchKeyword.bind(this)
+  }
+
+  componentWillMount() {
+    this.searchKeyword('tesla')
+    this.searchKeyword('apple')
+    this.searchKeyword('google')
   }
 
   componentDidMount() {
@@ -73,13 +80,15 @@ export default class Main extends React.Component {
     return (
       <div>
         <Search search={this.searchKeyword}/>
-        <ul>
-        {this.props.tweets.tweets[0] 
-          ? this.props.tweets.tweets[0].map(tweet => <li key={tweet.timestamp}>{JSON.stringify(tweet.sentiment)}</li>) 
-          : ''
-        }
-        </ul>
+        <SentimentGraph />
       </div>
     );
   }
 }
+
+{/* <ul>
+{this.props.tweets.tweets[0] 
+  ? this.props.tweets.tweets[0].map(tweet => <li key={tweet.id}>{JSON.stringify(tweet)}</li>) 
+  : ''
+}
+</ul> */}
