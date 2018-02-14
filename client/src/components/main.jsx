@@ -9,8 +9,6 @@ import Search from '../components/search.jsx';
 import SentimentGraph from './lineChart.jsx';
 
 import setSocket from '../actions/socketActions';
-import * as tweetHelpers from '../actions/tweetsActions';
-
 
 @connect(store => {
   return {
@@ -19,22 +17,12 @@ import * as tweetHelpers from '../actions/tweetsActions';
     socket: store.socket
   };
 })
+
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      query: '',
-    };
-    this.searchKeyword = this.searchKeyword.bind(this)
   }
-
-  componentWillMount() {
-    this.searchKeyword('tesla')
-    this.searchKeyword('apple')
-    this.searchKeyword('google')
-  }
-
+  
   componentDidMount() {
     // connects to socket when component loads
     let socket = io.connect("http://127.0.0.1:3000");
@@ -57,29 +45,11 @@ export default class Main extends React.Component {
     });
   }
 
-  // based on input query, sends req to server for tweets of given query
-  searchKeyword(query) {
-    fetch("/api/fetchKeyword", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        query,
-      })})
-      .then(res => res.json())
-      .then(data => {
-        console.log('success fetch: ', data)
-        this.props.dispatch(tweetHelpers.addTweet(data))
-      })
-      .catch(err => console.log(err));
-  }
-
   render() {
     console.log(this.props);
     return (
       <div>
-        <Search search={this.searchKeyword}/>
+        <Search />
         <SentimentGraph />
       </div>
     );
