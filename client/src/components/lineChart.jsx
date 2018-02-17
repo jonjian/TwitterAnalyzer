@@ -22,15 +22,18 @@ render() {
     // console.log('THIS IS THE D', d)
     return Date.parse(d.timestamp);
   }
-  console.log('TWEETS HERE', this.props.tweets.tweets[0])
+  console.log('TWEETS HERE', this.props.tweets.tweets)
   // load your general data
   let chartData = this.props.tweets.tweets[0] || [];
+  let word = ''
+  if (this.props.tweets.tweets.length !== 0) {
+    word = this.props.tweets.tweets[0][0].keyword;
+  }
   const width = 1200
   const height = 600
   const margins = {
     left: 100, right: 100, top: 50, bottom: 50,
   }
-  const title = 'Tesla sentiment analysis'
   const xScale = 'time';
   // chart series,
   // field: is what field your data want to be selected
@@ -39,7 +42,7 @@ render() {
   const chartSeries = [
     {
       field: 'sentiment',
-      name: 'sentiment value over time',
+      name: `${word} sentiment value over time`,
       color: '#31b2c3',
       style: {
           "strokeWidth": 2,
@@ -50,7 +53,6 @@ render() {
   ]
     return (
     <LineTooltip
-      title={title}
       margins={margins}
       data={chartData}
       width={width}

@@ -41,6 +41,8 @@
     "react-d3-tooltip": "^1.4.14",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.6",
+    "react-transition-group": "^2.2.1",
+    "reactstrap": "^4.8.0",
     "redis": "^2.7.1",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
